@@ -4,24 +4,32 @@
   margin-top: auto;
 }
 
+/* ===== Franja principal: marca + nav ===== */
 .top {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 72px 24px 48px;
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 0.8fr 1.3fr;
-  gap: 48px;
+  padding: 52px 24px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-/* --- Marca --- */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+}
+
 .logoRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
 }
 
-/* Logotipo SVG sobre fondo oscuro: trazos claros + acento borgoña claro */
+/* Logotipo SVG sobre fondo oscuro */
 .logoMark {
   color: #ECEDEF;
   --logo-accent: #D699AC;
@@ -31,7 +39,7 @@
 .logoText {
   font-family: var(--font-title);
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: #fff;
 }
 
@@ -41,11 +49,10 @@
 }
 
 .tagline {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(236, 237, 239, 0.66);
-  margin-bottom: 22px;
-  max-width: 320px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(236, 237, 239, 0.62);
+  margin: 0;
 }
 
 .socialRow {
@@ -54,8 +61,8 @@
 }
 
 .socialBtn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid rgba(236, 237, 239, 0.25);
   display: flex;
@@ -68,120 +75,73 @@
 .socialBtn:hover {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  color: var(--color-primary-deep);
+  color: #fff;
   transform: translateY(-2px);
 }
 
-/* --- Columnas de enlaces --- */
-.colTitle {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-accent-soft);
-  margin-bottom: 18px;
-}
-
-.list {
-  list-style: none;
+/* --- Navegación horizontal --- */
+.nav {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 10px;
 }
 
-.link {
+.navLink {
   font-size: 0.94rem;
   color: rgba(236, 237, 239, 0.78);
-  transition: color var(--transition-speed) ease, padding-left var(--transition-speed) ease;
+  transition: color var(--transition-speed) ease;
 }
 
-.link:hover {
-  color: var(--color-accent-soft);
-  padding-left: 4px;
-}
-
-.contactList {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.contactList li {
-  display: flex;
-  gap: 12px;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  align-items: flex-start;
-}
-
-.icon {
-  flex-shrink: 0;
-  margin-top: 3px;
+.navLink:hover {
   color: var(--color-accent-soft);
 }
 
-/* --- Barra inferior --- */
+/* ===== Barra inferior ===== */
 .bottom {
   border-top: 1px solid rgba(236, 237, 239, 0.12);
-  padding: 22px 24px;
+  padding: 20px 24px;
   max-width: 1240px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
   font-size: 0.84rem;
   color: rgba(236, 237, 239, 0.55);
 }
 
-.disclaimer {
-  font-size: 0.76rem;
-  text-align: right;
+.bottom p {
+  margin: 0;
 }
 
-/* --- Responsive --- */
-@media (max-width: 1024px) {
-  .top {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding: 60px 24px 40px;
-  }
+.contactLine a {
+  color: rgba(236, 237, 239, 0.75);
 }
 
-@media (max-width: 640px) {
+.contactLine a:hover {
+  color: var(--color-accent-soft);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
   .top {
-    grid-template-columns: 1fr;
-    gap: 34px;
-    padding: 52px 18px 34px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 44px 18px 36px;
   }
 
-  .disclaimer {
-    text-align: left;
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 20px;
   }
 
   .bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-    padding: 20px 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .socialBtn {
-    width: 36px;
-    height: 36px;
-  }
-
-  .contactList li {
-    flex-direction: column;
     gap: 6px;
-  }
-
-  .icon {
-    margin-top: 0;
+    padding: 18px;
+    font-size: 0.8rem;
   }
 }
