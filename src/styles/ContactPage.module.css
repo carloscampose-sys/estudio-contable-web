@@ -211,6 +211,20 @@
   line-height: 1.7;
 }
 
+.backLink {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.backLink:hover {
+  color: var(--color-accent);
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .section {

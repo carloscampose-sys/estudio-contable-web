@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
+import { IconWhatsApp } from './icons/BrandIcons';
+import { whatsappLink, WHATSAPP_GREETING } from '../config/contact';
 import styles from '../styles/ContactCta.module.css';
 
 export default function ContactCta() {
@@ -20,8 +22,13 @@ export default function ContactCta() {
           <Link to="/contacto" className={styles.btnDark}>
             Agendar diagnóstico <ArrowRight size={17} />
           </Link>
-          <a href="tel:+5114802600" className={styles.btnGhost}>
-            <Phone size={17} /> (01) 480-2600
+          <a
+            href={whatsappLink(WHATSAPP_GREETING)}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.btnGhost}
+          >
+            <IconWhatsApp size={17} /> Escríbenos al WhatsApp
           </a>
         </div>
       </div>

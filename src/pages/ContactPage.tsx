@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { IconPin, IconPhone, IconMail, IconClock, IconWhatsApp, IconSend } from '../components/icons/BrandIcons';
+import { WHATSAPP_DISPLAY, whatsappLink, buildFormMessage, WHATSAPP_GREETING } from '../config/contact';
 import useSEO from '../hooks/useSEO';
 import useReveal from '../hooks/useReveal';
 import styles from '../styles/ContactPage.module.css';
@@ -19,6 +20,7 @@ const serviceOptions = [
 export default function ContactPage() {
   useReveal();
   const [sent, setSent] = useState(false);
+  const [waUrl, setWaUrl] = useState('');
   const [service, setService] = useState(serviceOptions[0]);
 
   useSEO({
@@ -30,7 +32,23 @@ export default function ContactPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Demo: en producción conectar con backend o servicio de correo (Formspree, Resend, etc.)
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      nombre: String(formData.get('nombre') || ''),
+      email: String(formData.get('email') || ''),
+      telefono: String(formData.get('telefono') || ''),
+      empresa: String(formData.get('empresa') || ''),
+      servicio: service,
+      mensaje: String(formData.get('mensaje') || ''),
+    };
+
+    const url = whatsappLink(buildFormMessage(data));
+
+    // Ocurre dentro del gesto del click: los bloqueadores de popups no lo impiden
+    window.open(url, '_blank', 'noopener,noreferrer');
+
+    setWaUrl(url);
     setSent(true);
   };
 
@@ -65,7 +83,15 @@ export default function ContactPage() {
               <span className={styles.infoIcon}><IconWhatsApp size={19} /></span>
               <div>
                 <strong>WhatsApp</strong>
-                <p><a href="https://wa.me/51987654321" target="_blank" rel="noreferrer">+51 987 654 321</a></p>
+                <p>
+                  <a
+                    href={whatsappLink(WHATSAPP_GREETING)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {WHATSAPP_DISPLAY}
+                  </a>
+                </p>
               </div>
             </li>
             <li className="reveal">
@@ -100,13 +126,22 @@ export default function ContactPage() {
           {sent ? (
             <div className={styles.success}>
               <CheckCircle2 size={52} className={styles.successIcon} />
-              <h2>¡Mensaje enviado!</h2>
+              <h2>¡Listo para enviar!</h2>
               <p>
-                Gracias por escribirnos. Un especialista te contactará dentro de las
-                próximas 24 horas hábiles para coordinar tu diagnóstico.
+                Se abrió WhatsApp con tu mensaje ya escrito hacia nuestro número{' '}
+                <strong>{WHATSAPP_DISPLAY}</strong>. Solo presiona <strong>enviar</strong> en
+                la app y un especialista te responderá dentro de las próximas 24 horas hábiles.
               </p>
-              <button className="btn btn-primary" onClick={() => setSent(false)}>
-                Enviar otro mensaje
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+              >
+                ¿No se abrió? Toca aquí
+              </a>
+              <button type="button" className={styles.backLink} onClick={() => setSent(false)}>
+                Volver al formulario
               </button>
             </div>
           ) : (
@@ -159,11 +194,11 @@ export default function ContactPage() {
               </label>
 
               <button type="submit" className={styles.submitBtn}>
-                <IconSend size={17} /> Enviar solicitud
+                <IconSend size={17} /> Enviar por WhatsApp
               </button>
               <p className={styles.privacy}>
-                Al enviar aceptas nuestra política de privacidad. Tus datos solo se usan
-                para responder a esta solicitud.
+                Al enviar se abrirá WhatsApp con tu mensaje listo — solo debes presionar
+                enviar. Tus datos se usan únicamente para responderte.
               </p>
             </form>
           )}
