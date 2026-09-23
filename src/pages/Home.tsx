@@ -1,4 +1,5 @@
 import useSEO from '../hooks/useSEO';
+import IntroSplash from '../components/IntroSplash';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import WhyUs from '../components/WhyUs';
@@ -16,6 +17,8 @@ export default function Home() {
 
   return (
     <>
+      {/* Animación de apertura: solo en Inicio, una vez por sesión */}
+      <IntroSplash />
       <Hero />
       <Services />
       <WhyUs />
